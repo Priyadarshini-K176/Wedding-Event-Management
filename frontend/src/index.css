@@ -1,0 +1,255 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+:root {
+  /* Sophisticated Champagne & Slate Palette */
+  --primary-accent: #d4a373;    
+  --soft-bg: #fdfaf7;           
+  --border-neutral: #eeeae6;    
+  --deep-text: #2d2a26;         
+  --muted-text: #7a746e;        
+  --white: #ffffff;
+  --font-heading: 'Plus Jakarta Sans', sans-serif;
+  --font-script: 'Dancing Script', cursive;
+}
+
+/* ================================
+   1. GLOBAL & LAYOUT
+================================ */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 10px; /* Base for rem units */
+}
+
+body {
+  font-family: var(--font-heading);
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  background-color: var(--white);
+  -webkit-font-smoothing: antialiased;
+}
+
+.login-main {
+  display: flex;
+  height: 100vh;
+}
+
+/* ================================
+   2. LEFT SIDE (IMAGE/DECOR)
+================================ */
+.login-left {
+  flex: 1;
+  height: 100vh;
+  background: radial-gradient(circle at top left, #fdfaf7, #ffffff);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-right: 1px solid var(--border-neutral);
+}
+
+.login-left img {
+  width: 400px;
+  filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.05));
+}
+
+/* ================================
+   3. RIGHT SIDE (FORM CONTAINER)
+================================ */
+.login-right {
+  flex: 1;
+  height: 100vh;
+  background-color: var(--white);
+}
+
+.login-right-container {
+  height: 100%;
+  width: 80%;
+  max-width: 450px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Logo positioning */
+.login-logo {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.login-logo img {
+  width: 60px;
+}
+
+/* ================================
+   4. TYPOGRAPHY
+================================ */
+.login-center {
+  text-align: center;
+}
+
+.login-center h2 {
+  font-size: 3.8rem;
+  font-weight: 800;
+  letter-spacing: -1.5px;
+  color: var(--deep-text);
+  margin-bottom: 8px;
+}
+
+.login-center p {
+  font-size: 1.8rem;
+  font-weight: 400;
+  color: var(--muted-text);
+  margin-bottom: 40px;
+}
+
+/* ================================
+   5. INPUT FIELDS
+================================ */
+.login-right form {
+  display: flex;
+  flex-direction: column;
+}
+
+form input[type='email'],
+form input[type='password'],
+form input[type='text'] {
+  width: 100%;
+  padding: 16px 4px;
+  margin-bottom: 24px;
+  border: none;
+  border-bottom: 1.5px solid var(--border-neutral);
+  background: transparent;
+  outline: none;
+  font-size: 1.6rem;
+  color: var(--deep-text);
+  transition: border-color 0.2s ease;
+}
+
+form input:focus {
+  border-color: var(--primary-accent);
+}
+
+.pass-input-div {
+  position: relative;
+}
+
+.pass-input-div svg {
+  font-size: 20px;
+  position: absolute;
+  right: 10px;
+  bottom: 35px;
+  cursor: pointer;
+  color: var(--muted-text);
+}
+
+/* ================================
+   6. OPTIONS & LINKS
+================================ */
+.login-center-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.remember-div {
+  display: flex;
+  align-items: center;
+  column-gap: 8px;
+}
+
+.remember-div label {
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: var(--muted-text);
+  cursor: pointer;
+}
+
+.forgot-pass-link {
+  text-decoration: none;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--primary-accent);
+}
+
+.forgot-pass-link:hover {
+  text-decoration: underline;
+}
+
+/* ================================
+   7. BUTTONS
+================================ */
+.login-center-buttons {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 12px;
+}
+
+/* Primary Button */
+.login-center-buttons button:nth-child(1) {
+  width: 100%;
+  padding: 16px;
+  background-color: var(--deep-text);
+  color: var(--white);
+  border: none;
+  border-radius: 50px;
+  font-size: 1.6rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.login-center-buttons button:nth-child(1):hover {
+  background-color: #000000;
+}
+
+/* Secondary/Social Button */
+.login-center-buttons button:nth-child(2) {
+  width: 100%;
+  padding: 16px;
+  background-color: var(--soft-bg);
+  color: var(--deep-text);
+  border: 1px solid var(--border-neutral);
+  border-radius: 50px;
+  font-size: 1.6rem;
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 10px;
+  cursor: pointer;
+}
+
+.login-center-buttons button:nth-child(2) img {
+  width: 24px;
+}
+
+.login-center-buttons button:nth-child(2):hover {
+  background-color: var(--border-neutral);
+}
+
+/* ================================
+   8. FOOTER
+================================ */
+.login-bottom-p {
+  text-align: center;
+  font-size: 1.5rem;
+  color: var(--muted-text);
+  margin-top: 40px;
+  padding-bottom: 40px;
+}
+
+.login-bottom-p a {
+  color: var(--primary-accent);
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.login-bottom-p a:hover {
+  text-decoration: underline;
+}
