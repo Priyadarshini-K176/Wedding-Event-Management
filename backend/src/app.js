@@ -6,6 +6,10 @@ const budgetRoutes = require("./routes/budget.routes");
 
 const eventRoutes=require("./routes/event.routes.js");
 
+const guestRoutes = require("./routes/guest.routes");
+
+
+
 
 
 const app = express();
@@ -25,6 +29,7 @@ app.use("/api/budget", budgetRoutes);
 
 app.use("/api/events", eventRoutes);
 
+app.use("/api/guests", guestRoutes);
 
 
 module.exports = app;

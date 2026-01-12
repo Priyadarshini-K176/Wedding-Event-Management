@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginApi } from "../services/auth.api";
+import "../styles/login.css";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -17,7 +18,7 @@ const Login = () => {
       const token = res.data.data.token;
 
       localStorage.setItem("token", token);
-      navigate("/overview");
+      navigate("/budget");
     } catch (err) {
       setError("Invalid email or password");
     }

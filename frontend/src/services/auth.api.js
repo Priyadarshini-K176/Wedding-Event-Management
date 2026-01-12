@@ -9,3 +9,6 @@ const API = axios.create({
 
 export const loginApi = (email, password) =>
   API.post("/login", { email, password });
+
+export const registerApi = (name, email, password, weddingName) =>
+  API.post("/register", { name, email, password, weddingName });
