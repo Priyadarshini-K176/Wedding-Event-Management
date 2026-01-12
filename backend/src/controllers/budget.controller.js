@@ -5,7 +5,8 @@ const BudgetItem = require("../models/BudgetItem");
 /* Get full budget overview */
 const getOverview = async (req, res) => {
   try {
-    const { weddingId } = req.user;
+    // TODO: Remove fallback after frontend auth is implemented
+    const weddingId = req.user?.weddingId || "507f1f77bcf86cd799439011";
 
     const categories = await Category.find({ weddingId })
       .sort({ order: 1 })
@@ -66,7 +67,8 @@ return {
 const addCategory = async (req, res) => {
   try {
     const { name } = req.body;
-    const { weddingId } = req.user;
+    // TODO: Remove fallback after frontend auth is implemented
+    const weddingId = req.user?.weddingId || "507f1f77bcf86cd799439011";
 
     if (!name) {
       return res.status(400).json({
@@ -104,7 +106,8 @@ const addCategory = async (req, res) => {
 const addItem = async (req, res) => {
   try {
     const { categoryId, title, plannedCost } = req.body;
-    const { weddingId } = req.user;
+    // TODO: Remove fallback after frontend auth is implemented
+    const weddingId = req.user?.weddingId || "507f1f77bcf86cd799439011";
 
     if (!categoryId) {
       return res.status(400).json({
@@ -146,7 +149,8 @@ const updateItem = async (req, res) => {
   try {
     const { id } = req.params;
     const { title, actualCost, plannedCost } = req.body;
-    const { weddingId } = req.user;
+    // TODO: Remove fallback after frontend auth is implemented
+    const weddingId = req.user?.weddingId || "507f1f77bcf86cd799439011";
 
     if (!id) {
       return res.status(400).json({
@@ -205,7 +209,8 @@ const updateCategoryBudget = async (req, res) => {
   try {
     const { id } = req.params;
     const { plannedBudget } = req.body;
-    const { weddingId } = req.user;
+    // TODO: Remove fallback after frontend auth is implemented
+    const weddingId = req.user?.weddingId || "507f1f77bcf86cd799439011";
 
     if (plannedBudget === undefined || plannedBudget < 0) {
       return res.status(400).json({

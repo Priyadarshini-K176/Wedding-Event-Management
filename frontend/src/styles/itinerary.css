@@ -1,0 +1,355 @@
+/* ================================
+   CHAMPAGNE THEME — ITINERARY UI
+================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --primary-accent: #d4a373;    
+  --soft-bg: #fdfaf7;           
+  --border-neutral: #eeeae6;    
+  --deep-text: #2d2a26;         
+  --muted-text: #7a746e;        
+  --white: #ffffff;
+  --font-heading: 'Plus Jakarta Sans', sans-serif;
+  --font-script: 'Dancing Script', cursive;
+}
+
+/* ================================
+   GLOBAL
+================================ */
+
+body {
+  font-family: var(--font-heading);
+  background: var(--white);
+}
+
+/* ================================
+   PAGE HEADERS
+================================ */
+
+.page-title {
+  font-size: 4.2rem;
+  font-weight: 800;
+  letter-spacing: -1.5px;
+  color: var(--deep-text);
+  margin-bottom: 28px;
+}
+
+/* ================================
+   EMPTY STATE
+================================ */
+
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--muted-text);
+}
+
+.empty-state h3 {
+  font-size: 20px;
+  color: var(--deep-text);
+  margin-bottom: 6px;
+}
+
+.empty-state p {
+  font-size: 15px;
+}
+
+/* ================================
+   ADD EVENT BUTTON
+================================ */
+.add-event-btn {
+  margin-top: 24px;
+  background: transparent;
+  border: 1.5px dashed var(--primary-accent);
+  padding: 14px 36px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--primary-accent);
+  cursor: pointer;
+}
+
+.add-event-btn:hover {
+  background: var(--primary-accent);
+  color: var(--white);
+}
+
+
+/* ================================
+   FOOTER CARD
+================================ */
+
+.event-footer {
+  margin-top: 40px;
+  max-width: 320px;
+  margin-left: auto;
+  padding: 16px 24px;
+  background: var(--deep-text);
+  border-radius: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--white);
+}
+
+.event-footer span {
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #a8a29d;
+}
+
+.event-footer strong {
+  font-size: 26px;
+  font-weight: 700;
+}
+
+/* ================================
+   ACTION BUTTONS
+================================ */
+
+.itinerary-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 14px;
+  margin-top: 20px;
+  padding-bottom: 40px;
+}
+
+.secondary-btn {
+  background: var(--soft-bg);
+  border: 1px solid var(--border-neutral);
+  padding: 14px 28px;
+  border-radius: 40px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--muted-text);
+  cursor: pointer;
+}
+
+.secondary-btn:hover {
+  border-color: var(--primary-accent);
+  color: var(--primary-accent);
+}
+
+/* ================================
+   DIALOG / MODAL
+================================ */
+
+.dialog-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(45, 42, 38, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.dialog {
+  background: var(--white);
+  width: 100%;
+  max-width: 420px;
+  padding: 32px;
+  border-radius: 20px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.12);
+}
+
+.dialog h3 {
+  font-weight: 700;
+  font-size: 22px;
+  margin-bottom: 20px;
+  color: var(--deep-text);
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 16px;
+}
+
+.dialog-actions button {
+  padding: 12px 20px;
+  border-radius: 10px;
+  border: none;
+  font-weight: 700;
+  cursor: pointer;
+  background: #f1eeeb;
+  color: var(--muted-text);
+}
+
+.dialog-actions button:hover {
+  background: var(--soft-bg);
+}
+/* ================================
+   EVENT FORM (MODAL CONTENT)
+================================ */
+
+.event-form-card {
+  background: var(--white);
+  border: 1px solid var(--border-neutral);
+  border-radius: 20px;
+  padding: 28px 30px;
+}
+
+/* Header */
+
+.event-form-header h2 {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--deep-text);
+  margin-bottom: 6px;
+}
+
+.event-form-header p {
+  font-size: 14px;
+  color: var(--muted-text);
+  margin-bottom: 22px;
+}
+
+/* Form */
+
+.event-form {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--deep-text);
+  margin-bottom: 8px;
+}
+
+/* Inputs */
+
+.form-group input {
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1.5px solid var(--border-neutral);
+  background: var(--soft-bg);
+  font-size: 14px;
+  color: var(--deep-text);
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--primary-accent);
+  background: #f7f3ef;
+}
+
+/* Submit Button */
+
+.modal-add-btn {
+  margin-top: 6px;
+  background: var(--primary-accent);
+  color: white;
+  border: none;
+  padding: 14px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.modal-add-btn:hover {
+  background: #c29263;
+}
+/* ================================
+   EVENT CARD
+================================ */
+
+.event-motion {
+  margin-bottom: 22px;
+}
+
+.event-card {
+  background: var(--white);
+  border-left: 5px solid var(--primary-accent);
+  border-radius: 16px;
+  padding: 22px 26px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 18px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.04);
+  transition: box-shadow 0.2s ease, transform 0.15s ease;
+}
+
+.event-card:hover {
+  box-shadow: 0 12px 26px rgba(0,0,0,0.08);
+  transform: translateY(-2px);
+}
+
+.event-info {
+  flex: 1;
+}
+
+.event-title {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--deep-text);
+  margin-bottom: 8px;
+}
+
+.event-time {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--muted-text);
+}
+
+.event-time .clock {
+  color: var(--primary-accent);
+  font-size: 16px;
+}
+
+/* Delete button already defined earlier */
+.delete-btn {
+  margin-top: 6px;
+  background: var(--primary-accent);
+  color: white;
+  border: none;
+  padding: 14px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.delete-btn:hover {
+  background: #c29263;
+}
+.event-date {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--primary-accent);
+  margin-bottom: 6px;
+}
+.date-group {
+  margin-bottom: 30px;
+}
+
+.date-heading {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--primary-accent);
+  margin: 28px 0 14px;
+  letter-spacing: 0.4px;
+}
+
+.event-day-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}

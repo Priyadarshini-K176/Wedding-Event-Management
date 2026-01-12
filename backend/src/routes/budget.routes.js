@@ -11,11 +11,12 @@ const {
 
 const auth = require("../middlewares/auth.middleware");
 
-router.get("/overview", auth, getOverview);
-router.post("/categories", auth, addCategory);
-router.post("/items", auth, addItem);
-router.patch("/items/:id", auth, updateItem);
-router.patch("/categories/:id/budget", auth, updateCategoryBudget);
+// TODO: Re-enable auth middleware after frontend auth is implemented
+router.get("/overview", getOverview);
+router.post("/categories", addCategory);
+router.post("/items", addItem);
+router.patch("/items/:id", updateItem);
+router.patch("/categories/:id/budget", updateCategoryBudget);
 
 
 module.exports = router;

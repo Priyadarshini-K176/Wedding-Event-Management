@@ -6,32 +6,30 @@ import {
   deleteEventApi,
   fetchEventsApi,
 } from "../services/eventApi";
+import "../styles/itinerary.css";
 
 export default function Itinerary() {
-  const [events, setEvents] = useState([]);
-  const [search, setSearch] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [events, setEvents] = useState(null);
+  const [showEventDialog, setShowEventDialog] = useState(false);
 
   const loadEvents = async () => {
     try {
-      setLoading(true);
       const res = await fetchEventsApi();
       const data = res.data?.events || res.data?.data || res.data || [];
       setEvents(Array.isArray(data) ? data : []);
     } catch (err) {
       console.error("Failed to load events:", err);
-      setEvents([]);
-    } finally {
-      setLoading(false);
     }
   };
 
   useEffect(() => {
     loadEvents();
   }, []);
-  const handleAddEvent = async (data) => {
+
+  const handleAddEvent = async (eventData) => {
     try {
-      await createEventApi(data);
+      await createEventApi(eventData);
+      setShowEventDialog(false);
       loadEvents();
     } catch (err) {
       console.error(err);
@@ -48,81 +46,51 @@ export default function Itinerary() {
     }
   };
 
-const filtered = Array.isArray(events) ? events.filter((e) =>
-  e.title?.toLowerCase().includes(search.toLowerCase())
-) : [];
+  if (!events) return <div className="empty-state">Loading...</div>;
+
+  // ✅ SORT EVENTS BY START TIME (TIMELINE ORDER)
+  const sortedEvents = [...events].sort(
+    (a, b) => new Date(a.startTime) - new Date(b.startTime)
+  );
 
   return (
-    <div style={{ backgroundColor: 'var(--soft-bg)', minHeight: '100vh' }} className="px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
-      <div className="max-w-7xl mx-auto">
-        <div className="grid" style={{ gridTemplateColumns: '1fr' }}>
-          {/* Header */}
-          <div className="mb-10 sm:mb-12 text-center">
-            <h1 style={{ color: 'var(--deep-text)', fontFamily: "var(--font-heading)", fontSize: 'clamp(2.5rem, 5vw, 3.5rem)', fontWeight: '700', letterSpacing: '0.5px' }} className="mb-2 sm:mb-3">
-              ✨ Event Planner
-            </h1>
-            <p style={{ color: 'var(--muted-text)', fontFamily: "var(--font-body)" }} className="text-base sm:text-lg">Organize your special moments</p>
-          </div>
+    <>
+      <h1 className="page-title">Itinerary</h1>
 
-          {/* Main layout with sidebar + content */}
-          <div style={{ display: 'grid', gap: '2rem', gridTemplateColumns: '1fr' }}>
-            <div style={{ display: 'grid', gap: '2rem', gridTemplateColumns: '240px 1fr' }}>
+      {sortedEvents.length > 0 ? (
+        <Timeline events={sortedEvents} onDelete={handleDeleteEvent} />
+      ) : (
+        <div className="empty-state">
+          <h3>No events planned yet</h3>
+          <p>Create one to get started!</p>
+        </div>
+      )}
 
-              <div>
-                {/* Two Column Layout inside content area */}
-                <div style={{
-                  display: 'grid',
-                  gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))',
-                  gap: '2rem',
-                }}>
-                  <div style={{ minWidth: 0 }}>
-                    <div style={{ position: 'sticky', top: '2rem' }}>
-                      <EventForm onAdd={handleAddEvent} />
-                    </div>
-                  </div>
+      <button className="add-event-btn" onClick={() => setShowEventDialog(true)}>
+        + Add event
+      </button>
 
-                  <div style={{ minWidth: 0 }}>
-                    <div className="mb-8 sm:mb-10">
-                      <input
-                        style={{ backgroundColor: 'var(--white)', borderColor: 'var(--border-neutral)', color: 'var(--deep-text)' }}
-                        className="w-full border rounded-full px-5 sm:px-6 py-3 sm:py-4 focus:outline-none shadow-sm hover:shadow-md transition text-base"
-                        placeholder="🔍 Search events..."
-                        value={search}
-                        onChange={(e) => setSearch(e.target.value)}
-                      />
-                    </div>
+      <div className="event-footer">
+        <span>Total Events</span>
+        <strong>{sortedEvents.length}</strong>
+      </div>
 
-                    <div>
-                      {loading && (
-                        <p className="text-center py-16" style={{ color: 'var(--muted-text)' }}>
-                          Loading your events...
-                        </p>
-                      )}
+      <div className="itinerary-actions">
+        <button className="secondary-btn">Download PDF</button>
+        <button className="secondary-btn">Download ICS</button>
+      </div>
 
-                      {!loading && (
-                        <>
-                          {filtered.length > 0 ? (
-                            <div>
-                              <h2 style={{ color: 'var(--deep-text)', fontFamily: "var(--font-body)" }} className="text-xl sm:text-2xl font-bold mb-8">
-                                Upcoming Events ({filtered.length})
-                              </h2>
-                              <Timeline events={filtered} onDelete={handleDeleteEvent} />
-                            </div>
-                          ) : (
-                            <div className="text-center py-16">
-                              <p style={{ color: 'var(--muted-text)' }} className="text-base sm:text-lg">No events planned yet. Create one to get started!</p>
-                            </div>
-                          )}
-                        </>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </div>
+      {showEventDialog && (
+        <div className="dialog-backdrop">
+          <div className="dialog">
+            <h3>Add Event</h3>
+            <EventForm onAdd={handleAddEvent} />
+            <div className="dialog-actions">
+              <button onClick={() => setShowEventDialog(false)}>Cancel</button>
             </div>
           </div>
         </div>
-      </div>
-    </div>
+      )}
+    </>
   );
 }

@@ -97,14 +97,14 @@ html, body {
   border: 1px solid var(--border-neutral);
 }
 
-h1 {
+h1, .page-title {
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-weight: 800;
   font-size: 46px;
   letter-spacing: -1.5px;
   color: var(--deep-text);
-  margin-bottom: 8px;
-  text-align: center;
+  margin: 0 0 32px 0;
+  text-align: left;
 }
 
 .budget-subtitle {

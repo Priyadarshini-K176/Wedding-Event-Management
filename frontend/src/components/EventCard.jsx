@@ -2,36 +2,52 @@ import { motion } from "framer-motion";
 
 export default function EventCard({ event, onDelete }) {
   if (!event) return null;
-  
-  let start = "", end = "";
+
+  let startDate = "";
+  let start = "";
+  let end = "";
+
   try {
-    start = new Date(event.startTime).toLocaleTimeString([], {
+    const startObj = new Date(event.startTime);
+
+    startDate = startObj.toLocaleDateString([], {
+      weekday: "short",
+      day: "2-digit",
+      month: "short",
+    });
+
+    start = startObj.toLocaleTimeString([], {
       hour: "2-digit",
       minute: "2-digit",
     });
-    end = new Date(event.endTime).toLocaleTimeString([], {
+
+    const endObj = new Date(event.endTime);
+    end = endObj.toLocaleTimeString([], {
       hour: "2-digit",
       minute: "2-digit",
     });
+
   } catch (e) {
     console.error("Error parsing event times:", e);
+    startDate = "Invalid date";
     start = "Invalid time";
     end = "Invalid time";
   }
 
   return (
-    <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
-      <div style={{
-        backgroundColor: 'var(--white)',
-        borderLeftColor: 'var(--primary-accent)',
-        borderLeftWidth: '5px',
-      }} className="rounded-lg shadow-sm hover:shadow-lg transition p-8 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-6">
-        <div className="flex-1">
-          <h3 style={{ color: 'var(--deep-text)', fontFamily: "var(--font-body)" }} className="font-bold text-xl leading-tight mb-3">
-            {event.title}
-          </h3>
-          <div style={{ color: 'var(--muted-text)', fontFamily: "var(--font-body)" }} className="flex items-center gap-2 text-base">
-            <span style={{ color: 'var(--primary-accent)' }} className="text-lg">🕐</span>
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="event-motion"
+    >
+      <div className="event-card">
+        <div className="event-info">
+          <h3 className="event-title">{event.title}</h3>
+
+          <div className="event-date">{startDate}</div>
+
+          <div className="event-time">
+            <span className="clock"></span>
             <span>{start}</span>
             <span>–</span>
             <span>{end}</span>
@@ -40,12 +56,7 @@ export default function EventCard({ event, onDelete }) {
 
         <button
           onClick={() => onDelete(event._id)}
-          style={{
-            backgroundColor: 'var(--primary-accent)',
-            color: 'var(--white)',
-            fontFamily: "var(--font-body)",
-          }}
-          className="px-8 py-3 rounded-lg text-base font-semibold hover:opacity-80 transition whitespace-nowrap shadow-sm hover:shadow-md"
+          className="delete-btn"
         >
           Delete
         </button>

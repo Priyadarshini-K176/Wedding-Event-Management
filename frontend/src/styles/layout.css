@@ -1,65 +1,92 @@
 /* ================================
-   APP LAYOUT & SIDEBAR
+   APP LAYOUT & SIDEBAR — CHAMPAGNE THEME
 ================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --primary-accent: #d4a373;    
+  --soft-bg: #fdfaf7;           
+  --border-neutral: #eeeae6;    
+  --deep-text: #2d2a26;         
+  --muted-text: #7a746e;        
+  --white: #ffffff;
+}
+
+/* ===== Layout ===== */
 
 .app-layout {
   display: flex;
-  height: 100vh; /* Changed to vh to ensure full screen height */
-  background: #ffffff;
+  height: 100vh;
+  background: var(--white);
+  font-family: 'Plus Jakarta Sans', sans-serif;
 }
+
+/* ===== Sidebar ===== */
 
 .sidebar {
-  width: 260px; /* Slightly wider for a premium feel */
-  background: #fffafa; /* Very faint blush tint */
-  padding: 40px 24px;
-  border-right: 1px solid #fceef2;
+  width: 260px;
+  background: linear-gradient(to bottom, #fffdfb, #fdfaf7);
+  padding: 42px 26px;
+  border-right: 1px solid var(--border-neutral);
   display: flex;
   flex-direction: column;
+  flex-shrink: 0;
 }
 
+/* Sidebar Title */
+
 .sidebar-title {
-  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 12px;
   font-weight: 800;
-  letter-spacing: 1.5px;
+  letter-spacing: 1.6px;
   text-transform: uppercase;
-  color: #ff4d8d; /* Theme Pink */
-  margin-bottom: 32px;
-  opacity: 0.8;
+  color: var(--primary-accent);
+  margin-bottom: 34px;
 }
+
+/* Nav Container */
 
 .sidebar-nav {
   display: flex;
   flex-direction: column;
-  gap: 8px; /* Tighter spacing for a modern list */
+  gap: 10px;
 }
+
+/* Nav Links */
 
 .sidebar-nav a {
   text-decoration: none;
-  color: #554a4f;
+  color: var(--muted-text);
   font-size: 15px;
   font-weight: 500;
   padding: 12px 16px;
-  border-radius: 10px;
-  /* No transitions as requested */
+  border-radius: 12px;
+  display: block;
 }
 
-/* Bright & Attractive Active State */
+/* Active Link */
+
 .sidebar-nav a.active {
-  color: #ff4d8d;
-  background: #fff0f5; /* Light petal pink background */
+  background: var(--soft-bg);
+  color: var(--primary-accent);
   font-weight: 700;
+  box-shadow: inset 0 0 0 1px var(--border-neutral);
 }
 
-/* Hover state without animation */
+/* Hover */
+
 .sidebar-nav a:hover {
-  background: #fdf2f4;
-  color: #ff4d8d;
+  background: var(--soft-bg);
+  color: var(--primary-accent);
 }
+
+/* ===== Main Content ===== */
 
 .main-content {
   flex: 1;
-  padding: 40px 60px; /* Increased side padding for better focus */
+  padding: 60px 50px;
   overflow-y: auto;
-  background: #ffffff; /* Keeps the budget area looking bright */
+  background: radial-gradient(circle at top left, #fdfaf7, #ffffff);
+  box-sizing: border-box;
 }
