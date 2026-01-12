@@ -12,14 +12,11 @@ const eventRoutes=require("./routes/event.routes.js");
 const noteRoutes = require("./routes/noteRoutes");
 
 app.use("/api/notes", noteRoutes);
-
-
+const guestRoutes = require("./routes/guest.routes");
 
 app.get("/health", (req, res) => {
   res.json({ status: "OK" });
 });
-
-
 
 app.use("/api/auth", authRoutes);
 
@@ -27,6 +24,7 @@ app.use("/api/budget", budgetRoutes);
 
 app.use("/api/events", eventRoutes);
 
+app.use("/api/guests", guestRoutes);
 
 
 module.exports = app;

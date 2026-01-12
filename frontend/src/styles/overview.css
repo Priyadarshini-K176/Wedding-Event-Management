@@ -1,0 +1,55 @@
+.landing {
+  min-height: 100vh;
+  background: #fdfaf7;
+  padding: 80px 40px;
+  text-align: center;
+}
+
+.landing-header h1 {
+  font-size: 48px;
+  margin-bottom: 12px;
+}
+
+.landing-header p {
+  color: #777;
+  font-size: 18px;
+  max-width: 600px;
+  margin: 0 auto 32px;
+}
+
+.landing-actions {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+
+.primary-btn {
+  background: #d4a373;
+  color: white;
+  padding: 14px 32px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.secondary-btn {
+  border: 1px solid #ccc;
+  padding: 14px 32px;
+  border-radius: 10px;
+  text-decoration: none;
+  color: #333;
+}
+
+.features {
+  margin-top: 80px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 24px;
+}
+
+.feature-card {
+  background: white;
+  padding: 24px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}

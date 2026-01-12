@@ -49,7 +49,7 @@ export default function EventCard({ event, onDelete }) {
           <div className="event-time">
             <span className="clock"></span>
             <span>{start}</span>
-            <span>–</span>
+            <span> – </span>
             <span>{end}</span>
           </div>
         </div>

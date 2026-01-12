@@ -1,0 +1,289 @@
+/* ================================
+   GUEST PAGE – BASE
+================================ */
+
+.guest-page {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.guest-page h1 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #2b1f24;
+}
+
+/* ================================
+   SUMMARY CARDS
+================================ */
+
+.guest-summary {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.guest-summary div {
+  background: #fff7fa;
+  border: 1px solid #fceef2;
+  border-radius: 14px;
+  padding: 20px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: #554a4f;
+}
+
+.guest-summary div:nth-child(1) {
+  color: #2b1f24;
+}
+
+.guest-summary div:nth-child(2) {
+  color: #2fa36b;
+}
+
+.guest-summary div:nth-child(3) {
+  color: #f59e0b;
+}
+
+.guest-summary div:nth-child(4) {
+  color: #ef4444;
+}
+
+/* ================================
+   FILTERS
+================================ */
+
+.guest-filters {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.guest-filters select {
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid #f3dbe3;
+  font-size: 14px;
+  background: #ffffff;
+  color: #554a4f;
+  outline: none;
+}
+
+/* ================================
+   GUEST TABLE
+================================ */
+
+.guest-table {
+  background: #ffffff;
+  border: 1px solid #fceef2;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.guest-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.guest-table thead {
+  background: #fff0f5;
+}
+
+.guest-table th {
+  text-align: left;
+  padding: 14px 16px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #7a5a64;
+  text-transform: uppercase;
+}
+
+.guest-table td {
+  padding: 14px 16px;
+  font-size: 14px;
+  color: #2b1f24;
+  border-top: 1px solid #fceef2;
+}
+
+/* ================================
+   RSVP DROPDOWN
+================================ */
+
+.guest-table select {
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid #f3dbe3;
+  font-size: 13px;
+  background: #ffffff;
+  color: #554a4f;
+}
+
+/* RSVP COLORS */
+.guest-table select[value="ACCEPTED"] {
+  color: #2fa36b;
+}
+
+.guest-table select[value="PENDING"] {
+  color: #f59e0b;
+}
+
+.guest-table select[value="DECLINED"] {
+  color: #ef4444;
+}
+
+/* ================================
+   RESPONSIVE
+================================ */
+
+@media (max-width: 900px) {
+  .guest-summary {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .guest-table table {
+    font-size: 13px;
+  }
+}
+
+/* ================================
+   ADD GUEST MODAL (BUDGET THEME)
+================================ */
+
+/* Backdrop with a soft blur for a premium feel */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(26, 24, 22, 0.3); /* Muted slate overlay */
+  backdrop-filter: blur(4px);      /* Modern glass effect */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+/* Modal box - Clean white card */
+.modal {
+  background: #ffffff;
+  width: 420px;
+  border-radius: 24px; /* Matches budget sheet rounding */
+  padding: 35px;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.12);
+  border: 1px solid #eeeae6;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+/* Modal title - Bold & Professional */
+.modal h2 {
+  margin: 0 0 24px 0;
+  font-family: 'Cormorant Garamond', serif; /* Matching your luxury font */
+  font-size: 32px;
+  font-weight: 600;
+  color: #2d2a26;
+  text-align: center;
+}
+
+/* Form layout */
+.modal form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Inputs & selects - Soft Champagne borders */
+.modal input,
+.modal select {
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1.5px solid #eeeae6;
+  font-size: 15px;
+  background: #fdfcfb;
+  color: #2d2a26;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.modal input:focus,
+.modal select:focus {
+  border-color: #d4a373; /* Gold accent */
+  background: #ffffff;
+  box-shadow: 0 0 0 4px rgba(212, 163, 115, 0.1);
+}
+
+/* Placeholder styling */
+.modal input::placeholder {
+  color: #a8a29d;
+}
+
+/* Action buttons */
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.modal-actions button {
+  padding: 12px 24px;
+  border-radius: 50px; /* Pill shape for "less boxy" feel */
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/* Cancel button - Secondary style */
+.modal-actions button:first-child {
+  background: #ffffff;
+  color: #7a746e;
+  border: 1.5px solid #eeeae6;
+}
+
+.modal-actions button:first-child:hover {
+  background: #fdfaf7;
+  border-color: #d4a373;
+  color: #d4a373;
+}
+
+/* Add button - Primary Champagne Gold */
+.modal-actions button:last-child {
+  background: #d4a373;
+  color: #ffffff;
+  border: none;
+  box-shadow: 0 4px 15px rgba(212, 163, 115, 0.2);
+}
+
+.modal-actions button:last-child:hover {
+  background: #c29263;
+  transform: translateY(-1px);
+}
+
+/* ================================
+   ADD GUEST BUTTON (LIST VIEW)
+================================ */
+
+.add-guest-btn {
+  background-color: #d4a373; /* Champagne Gold */
+  color: #ffffff;
+  border: none;
+  padding: 14px 28px;
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-radius: 50px; /* Consistent pill shape */
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(212, 163, 115, 0.2);
+}
+
+.add-guest-btn:hover {
+  background-color: #c29263;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(212, 163, 115, 0.3);
+}
