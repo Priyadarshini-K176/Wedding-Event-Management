@@ -18,7 +18,8 @@ function App() {
         <Route path="/" element={<Navigate to="/overview" replace />} />
 
 
-        {/* PUBLIC ROUTES */}
+        {/* PUBLIC ROUTES (NO SIDEBAR) */}
+        <Route path="/" element={<Overview />} />
         <Route path="/overview" element={<Overview />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
