@@ -21,18 +21,15 @@ export const addCategory = (name) =>
  * Add new item
  * payload = { title, plannedCost }
  */
-export const addItem = (categoryId, payload) =>
-  api.post("/items", {
-    categoryId,
-    ...payload,
-  });
+export const addItem = ( payload) =>
+  api.post("/item", payload);
 
 /**
  * Update item (autosave)
  * payload = { title?, actualCost?, plannedCost? }
  */
 export const updateItem = (itemId, payload) =>
-  api.patch(`/items/${itemId}`, payload);
+  api.patch(`/item/${itemId}`, payload);
 
 /**
  * Update category planned budget

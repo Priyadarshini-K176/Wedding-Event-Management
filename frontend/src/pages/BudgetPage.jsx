@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import CategorySection from "../components/budget/CategorySection";
 import { getOverview, addCategory } from "../services/budget.api";
 import BudgetPieChart from "../components/budget/BudgetPieChart";
-
+import jsPDF from "jspdf";
+import autoTable from "jspdf-autotable";
 
 const BudgetPage = () => {
   const [data, setData] = useState(null);
@@ -17,6 +18,40 @@ const BudgetPage = () => {
       console.error("Failed to load overview", err);
     }
   };
+
+
+
+const downloadPDF = () => {
+  const categories = data.categories;
+  const doc = new jsPDF();
+
+  doc.setFontSize(16);
+  doc.text("Wedding Budget Report", 14, 20);
+
+  let y = 30;
+
+  categories.forEach((category) => {
+    doc.setFontSize(13);
+    doc.text(category.name, 14, y);
+    y += 6;
+
+    autoTable(doc, {
+      startY: y,
+      head: [["Item", "Planned Cost", "Actual Cost"]],
+      body: category.items.map(item => [
+        item.title,
+        item.plannedCost,
+        item.actualCost
+      ]),
+      theme: "grid"
+    });
+
+    y = doc.lastAutoTable.finalY + 10;
+  });
+
+  doc.save("wedding-budget.pdf");
+};
+
 
   useEffect(() => {
     fetchOverview();
@@ -56,7 +91,7 @@ const BudgetPage = () => {
       </div>
 
       <div className="budget-actions">
-        <button className="secondary">Download PDF</button>
+        <button className="secondary" onClick={downloadPDF}>Download PDF</button>
         <button className="secondary">Download XLS</button>
       </div>
 

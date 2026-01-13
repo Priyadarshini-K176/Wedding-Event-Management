@@ -17,3 +17,4 @@ API.interceptors.request.use((config) => {
 
 export const fetchGuestsApi = () => API.get("/");
 export const addGuestApi = (guest) => API.post("/", guest);
+export const updateGuestRsvpApi = (id, rsvp) => API.patch(`/${id}/rsvp`, { rsvp });

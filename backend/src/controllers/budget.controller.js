@@ -1,3 +1,4 @@
+const mongoose = require("mongoose");
 const Category = require("../models/Category");
 const BudgetItem = require("../models/BudgetItem");
 
@@ -118,31 +119,38 @@ const addCategory = async (req, res) => {
 
 /* Add new item */
 const addItem = async (req, res) => {
-
   try {
     if (!req.user || !req.user.weddingId) {
-  return res.status(401).json({
-    success: false,
-    message: "Unauthorized"
-  });
-}
+      return res.status(401).json({
+        success: false,
+        message: "Unauthorized"
+      });
+    }
 
     const { categoryId, title, plannedCost } = req.body;
-    // TODO: Remove fallback after frontend auth is implemented
-    const weddingId = req.user?.weddingId ;
+    const weddingId = req.user.weddingId;
 
-    if (!categoryId) {
+    // ✅ Validate categoryId properly
+    if (!categoryId || !mongoose.Types.ObjectId.isValid(categoryId)) {
       return res.status(400).json({
         success: false,
-        message: "categoryId is required"
+        message: "Valid categoryId is required"
+      });
+    }
+
+    // ✅ Enforce title (NO silent fallback)
+    if (!title || !title.trim()) {
+      return res.status(400).json({
+        success: false,
+        message: "Item title is required"
       });
     }
 
     const item = await BudgetItem.create({
       weddingId,
       categoryId,
-      title: title || "New item",
-      plannedCost: plannedCost || 0,
+      title: title.trim(),
+      plannedCost: Number(plannedCost) || 0,
       actualCost: 0
     });
 

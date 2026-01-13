@@ -51,4 +51,43 @@ const getGuests = async (req, res) => {
   }
 };
 
-module.exports = { addGuest, getGuests };
+const updateGuestRsvp = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { rsvp } = req.body;
+    const { weddingId } = req.user;
+
+    if (!["PENDING", "ACCEPTED", "DECLINED"].includes(rsvp)) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid RSVP status",
+      });
+    }
+
+    const guest = await Guest.findOneAndUpdate(
+      { _id: id, weddingId },
+      { $set: { rsvp } },
+      { new: true }
+    );
+
+    if (!guest) {
+      return res.status(404).json({
+        success: false,
+        message: "Guest not found",
+      });
+    }
+
+    res.json({
+      success: true,
+      data: guest,
+    });
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      message: err.message,
+    });
+  }
+};
+
+
+module.exports = { addGuest, getGuests , updateGuestRsvp};

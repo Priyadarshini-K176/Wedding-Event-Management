@@ -442,7 +442,10 @@ button.secondary:hover {
     rgba(212, 163, 115, 0.12),
     rgba(255, 220, 220, 0.45)
   );
-  border-left: 4px solid #d9534f;
+  
+
+
+  
 }
 
 .category-budget {
@@ -496,4 +499,135 @@ button.secondary:hover {
   letter-spacing: 1px;
   color: var(--muted-text);
   text-align: center;
+}
+
+
+
+
+
+
+/* Container Box */
+.budget-category-container {
+  background: #ffffff;
+  border: 2px solid #e2e2e2;
+  border-radius: 12px;
+  margin-bottom: 30px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+}
+
+/* Header Bar */
+.category-header-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 30px;
+  background: #f9f9f9; /* Subtle gray to separate from list */
+  border-bottom: 2px solid #e2e2e2;
+}
+
+.category-title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 800;
+  color: #111111; /* Darker black */
+}
+
+.count-badge {
+  font-size: 11px;
+  font-weight: 700;
+  color: #777;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Header Summary Stats */
+.header-summary {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.summary-item label {
+  display: block;
+  font-size: 10px;
+  font-weight: 800;
+  color: #555; /* Mid-gray label */
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.total-amount {
+  font-size: 18px;
+  font-weight: 800;
+  color: #111111;
+}
+
+.header-divider {
+  width: 1px;
+  height: 35px;
+  background: #ddd;
+}
+
+.planned-total-input {
+  border: none;
+  border-bottom: 2px solid #d4a373; /* Gold accent only here */
+  background: transparent;
+  font-size: 18px;
+  font-weight: 800;
+  width: 100px;
+  color: #111;
+  outline: none;
+  text-align: right;
+}
+
+/* Table Alignment (MATCH THESE WIDTHS IN EDITABLE ROW) */
+.table-column-headers {
+  display: grid;
+  grid-template-columns: 1fr 120px 120px 40px; /* Precise widths */
+  padding: 12px 30px;
+  background: #ffffff;
+  border-bottom: 1px solid #eeeeee;
+  font-size: 11px;
+  font-weight: 700;
+  color: #999;
+  text-transform: uppercase;
+}
+
+.col-num {
+  text-align: right;
+  padding-right: 10px;
+}
+
+/* Add Item Button */
+.category-add-btn {
+  width: 100%;
+  padding: 18px 32px; 
+  background: #ffffff;
+  border: none;
+  border-top: 1px solid #eeeeee;
+  color: #d4a373;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  text-align: left;
+  padding-left: 30px;
+}
+
+.category-add-btn:hover {
+  background: #fffbf7;
+  color: #c29263;
+}
+
+/* List Items */
+.empty-row {
+  padding: 20px 0px;
+  color: #bbb;
+  font-size: 14px;
+  font-style: italic;
+}
+
+
+.category-items-list{
+  padding: 20px;
 }

@@ -5,19 +5,19 @@ import { addItem, updateCategoryBudget } from "../../services/budget.api";
 const CategorySection = ({ category, refreshOverview }) => {
   const [showItemDialog, setShowItemDialog] = useState(false);
   const [itemTitle, setItemTitle] = useState("");
+  const [plannedBudget, setPlannedBudget] = useState(category.plannedBudget || 0);
 
-  const [plannedBudget, setPlannedBudget] = useState(
-    category.plannedBudget || 0
-  );
-
-  /* Keep local state in sync when overview refreshes */
   useEffect(() => {
     setPlannedBudget(category.plannedBudget || 0);
   }, [category.id, category.plannedBudget]);
 
   const handleAddItem = async () => {
     if (!itemTitle.trim()) return;
-    await addItem(category.id, itemTitle);
+    await addItem({
+      categoryId: category.id,
+      title: itemTitle.trim(),
+      plannedCost: 0
+    });
     setItemTitle("");
     setShowItemDialog(false);
     refreshOverview();
@@ -30,68 +30,81 @@ const CategorySection = ({ category, refreshOverview }) => {
     }
   };
 
-  /* Status logic */
-  const ratio =
-    plannedBudget > 0 ? category.categoryTotal / plannedBudget : 0;
-
-  const status =
-    ratio > 1 ? "over" : ratio > 0.8 ? "warning" : "ok";
-
   return (
-    <section className={`category-section ${status}`}>
-      {/* Header */}
-      <div className="category-header">
-        <h3>{category.name}</h3>
+    <div className="budget-category-container">
+      {/* 1. High-Contrast Header */}
+      <div className="category-header-bar">
+        <div className="header-info">
+          <h3 className="category-title">{category.name}</h3>
+          <span className="count-badge">{category.items.length} Items</span>
+        </div>
 
-        <div className="category-budget">
-          <span className="actual">
-            {(category.categoryTotal ?? 0).toLocaleString()}
-          </span>
-
-          <span className="sep">/</span>
-
-          <input
-            className="planned"
-            type="number"
-            value={plannedBudget}
-            onChange={(e) => setPlannedBudget(Number(e.target.value))}
-            onBlur={handleBudgetBlur}
-          />
+        <div className="header-summary">
+          <div className="summary-item">
+            <label>Actual Spent</label>
+            <span className="total-amount">₹{(category.categoryTotal ?? 0).toLocaleString()}</span>
+          </div>
+          <div className="header-divider"></div>
+          <div className="summary-item">
+            <label>Planned Budget</label>
+            <div className="input-group">
+               <span className="curr">₹</span>
+               <input
+                type="number"
+                value={plannedBudget}
+                onChange={(e) => setPlannedBudget(Number(e.target.value))}
+                onBlur={handleBudgetBlur}
+                className="planned-total-input"
+              />
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* Items */}
-      {category.items.length > 0 && (
-        <div className="category-items">
-          {category.items.map((item) => (
-            <EditableRow key={item.id} item={item} />
-          ))}
-        </div>
-      )}
+      {/* 2. Structured Table Headings */}
+      <div className="table-column-headers">
+        <div className="col-desc">Expense Description</div>
+        <div className="col-num">Planned</div>
+        <div className="col-num">Actual</div>
+        <div className="col-spacer"></div>
+      </div>
 
-      {/* Add item */}
-      <button className="add-item" onClick={() => setShowItemDialog(true)}>
-        + Add item
+      {/* 3. Items List */}
+      <div className="category-items-list">
+        {category.items.length > 0 ? (
+          category.items.map((item) => (
+            <EditableRow key={item.id} item={item} />
+          ))
+        ) : (
+          <div className="empty-row">No items added to this category.</div>
+        )}
+      </div>
+
+      {/* 4. Defined Add Button */}
+      <button className="category-add-btn" onClick={() => setShowItemDialog(true)}>
+        + Add New Item
       </button>
 
-      {/* Add Item Dialog */}
+      {/* Dialog / Modal */}
       {showItemDialog && (
         <div className="dialog-backdrop">
-          <div className="dialog">
-            <h3>Add item</h3>
+          <div className="dialog-box">
+            <h3>Add New Item</h3>
+            <p>What is this expense for?</p>
             <input
-              placeholder="Item title"
+              placeholder="e.g., Venue Deposit"
               value={itemTitle}
               onChange={(e) => setItemTitle(e.target.value)}
+              autoFocus
             />
-            <div className="dialog-actions">
-              <button onClick={() => setShowItemDialog(false)}>Cancel</button>
-              <button onClick={handleAddItem}>Add</button>
+            <div className="dialog-footer">
+              <button className="cancel-btn" onClick={() => setShowItemDialog(false)}>Cancel</button>
+              <button className="confirm-btn" onClick={handleAddItem}>Add Item</button>
             </div>
           </div>
         </div>
       )}
-    </section>
+    </div>
   );
 };
 
