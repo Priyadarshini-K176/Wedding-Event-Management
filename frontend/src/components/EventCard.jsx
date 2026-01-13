@@ -3,19 +3,11 @@ import { motion } from "framer-motion";
 export default function EventCard({ event, onDelete }) {
   if (!event) return null;
 
-  let startDate = "";
   let start = "";
   let end = "";
 
   try {
     const startObj = new Date(event.startTime);
-
-    startDate = startObj.toLocaleDateString([], {
-      weekday: "short",
-      day: "2-digit",
-      month: "short",
-    });
-
     start = startObj.toLocaleTimeString([], {
       hour: "2-digit",
       minute: "2-digit",
@@ -29,7 +21,6 @@ export default function EventCard({ event, onDelete }) {
 
   } catch (e) {
     console.error("Error parsing event times:", e);
-    startDate = "Invalid date";
     start = "Invalid time";
     end = "Invalid time";
   }
@@ -43,8 +34,6 @@ export default function EventCard({ event, onDelete }) {
       <div className="event-card">
         <div className="event-info">
           <h3 className="event-title">{event.title}</h3>
-
-          <div className="event-date">{startDate}</div>
 
           <div className="event-time">
             <span className="clock"></span>

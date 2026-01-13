@@ -3,9 +3,17 @@ const Event = require("../models/Event");
 const createEvent = async (req, res) => {
   try {
     const { title, startTime, endTime, eventType } = req.body;
-    // TODO: Remove fallback after frontend auth is implemented
-    const weddingId = req.user?.weddingId || "507f1f77bcf86cd799439011";
-    const userId = req.user?.userId || "507f1f77bcf86cd799439012";
+    
+    if (!req.user || !req.user.weddingId || !req.user.userId) {
+      return res.status(401).json({
+        success: false,
+        data: null,
+        error: "Authentication required"
+      });
+    }
+
+    const weddingId = req.user.weddingId;
+    const userId = req.user.userId;
 
     // conflict detection
     const conflict = await Event.findOne({
@@ -47,8 +55,15 @@ const createEvent = async (req, res) => {
 
 const getEvents = async (req, res) => {
   try {
-    // TODO: Remove fallback after frontend auth is implemented
-    const weddingId = req.user?.weddingId || "507f1f77bcf86cd799439011";
+    if (!req.user || !req.user.weddingId) {
+      return res.status(401).json({
+        success: false,
+        data: null,
+        error: "Authentication required"
+      });
+    }
+
+    const weddingId = req.user.weddingId;
     const events = await Event.find({
       weddingId
     }).sort({ startTime: 1 });
@@ -71,8 +86,16 @@ const updateEvent = async (req, res) => {
   try {
     const { id } = req.params;
     const { title, startTime, endTime, eventType } = req.body;
-    // TODO: Remove fallback after frontend auth is implemented
-    const weddingId = req.user?.weddingId || "507f1f77bcf86cd799439011";
+    
+    if (!req.user || !req.user.weddingId) {
+      return res.status(401).json({
+        success: false,
+        data: null,
+        error: "Authentication required"
+      });
+    }
+
+    const weddingId = req.user.weddingId;
 
     // conflict check (exclude current event)
     const conflict = await Event.findOne({

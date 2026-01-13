@@ -9,10 +9,10 @@ const {
 } = require("../controllers/event.controller.js");
 
 
-// TODO: Re-enable auth middleware after frontend auth is implemented
-router.post("/", createEvent);
-router.get("/", getEvents);
-router.put("/:id", updateEvent);
-router.delete("/:id", deleteEvent);
+// Enable auth middleware for user-specific data
+router.post("/", auth, createEvent);
+router.get("/", auth, getEvents);
+router.put("/:id", auth, updateEvent);
+router.delete("/:id", auth, deleteEvent);
 
 module.exports=router;

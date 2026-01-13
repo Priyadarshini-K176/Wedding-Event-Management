@@ -6,6 +6,7 @@ import BudgetPage from "./pages/BudgetPage";
 import Itinerary from "./pages/Itinerary";
 import Notes from "./pages/Notes";
 import Guests from "./pages/Guests";
+import Profile from "./pages/Profile";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
@@ -31,6 +32,7 @@ function App() {
           <Route path="/itinerary" element={<Itinerary />} />
           <Route path="/notes" element={<Notes />} />
           <Route path="/guests" element={<Guests />} />
+          <Route path="/profile" element={<Profile />} />
         </Route>
 
       </Routes>

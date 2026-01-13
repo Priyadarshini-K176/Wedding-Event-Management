@@ -7,8 +7,16 @@ const createNote = async (req, res) => {
   try {
     const { text } = req.body;
 
-    const weddingId = req.user?.weddingId || "507f1f77bcf86cd799439011";
-    const userId = req.user?.userId || "507f1f77bcf86cd799439012";
+    if (!req.user || !req.user.weddingId || !req.user.userId) {
+      return res.status(401).json({
+        success: false,
+        data: null,
+        error: "Authentication required",
+      });
+    }
+
+    const weddingId = req.user.weddingId;
+    const userId = req.user.userId;
 
     const note = await Note.create({
       weddingId,
@@ -35,7 +43,15 @@ const createNote = async (req, res) => {
 ================================ */
 const getNotes = async (req, res) => {
   try {
-    const weddingId = req.user?.weddingId || "507f1f77bcf86cd799439011";
+    if (!req.user || !req.user.weddingId) {
+      return res.status(401).json({
+        success: false,
+        data: null,
+        error: "Authentication required",
+      });
+    }
+
+    const weddingId = req.user.weddingId;
 
     const notes = await Note.find({ weddingId }).sort({ createdAt: -1 });
 

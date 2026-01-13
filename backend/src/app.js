@@ -11,6 +11,8 @@ const eventRoutes=require("./routes/event.routes.js");
 
 const noteRoutes = require("./routes/noteRoutes");
 
+const profileRoutes = require("./routes/profile.routes");
+
 app.use("/api/notes", noteRoutes);
 const guestRoutes = require("./routes/guest.routes");
 
@@ -25,6 +27,8 @@ app.use("/api/budget", budgetRoutes);
 app.use("/api/events", eventRoutes);
 
 app.use("/api/guests", guestRoutes);
+
+app.use("/api/profile", profileRoutes);
 
 
 module.exports = app;

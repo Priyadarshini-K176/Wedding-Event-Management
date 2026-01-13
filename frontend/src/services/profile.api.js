@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "http://localhost:5000/api/notes",
+  baseURL: "http://localhost:5000/api/profile",
   headers: {
     "Content-Type": "application/json",
   },
@@ -16,6 +16,5 @@ API.interceptors.request.use((config) => {
   return config;
 });
 
-export const fetchNotesApi = () => API.get("/");
-export const createNoteApi = (data) => API.post("/", data);
-export const deleteNoteApi = (id) => API.delete(`/${id}`);
+export const getProfileApi = () => API.get("/");
+export const updateProfileApi = (profileData) => API.put("/", profileData);

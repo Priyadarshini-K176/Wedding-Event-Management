@@ -24,6 +24,32 @@ const userSchema=new mongoose.Schema(
     weddingId:{
         type:mongoose.Schema.Types.ObjectId,
         ref:"Wedding"
+    },
+    // Profile fields
+    partnerName:{
+        type:String,
+        trim:true
+    },
+    weddingDate:{
+        type:Date
+    },
+    venue:{
+        type:String,
+        trim:true
+    },
+    budget:{
+        type:Number
+    },
+    guestCount:{
+        type:Number
+    },
+    phone:{
+        type:String,
+        trim:true
+    },
+    address:{
+        type:String,
+        trim:true
     }
 
 },
