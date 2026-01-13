@@ -1,3 +1,56 @@
+/* ================================
+   ANIMATED BACKGROUND
+================================ */
+
+body {
+  background: linear-gradient(-45deg, #fdf8f3, #f5ede4, #f9f1e8, #fefbf7, #f7f0e6);
+  background-size: 400% 400%;
+  animation: gentleGradient 8s ease-in-out infinite;
+  min-height: 100vh;
+}
+
+@keyframes gentleGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 20% 80%, rgba(212, 163, 115, 0.08) 0%, transparent 50%),
+              radial-gradient(circle at 80% 20%, rgba(212, 163, 115, 0.06) 0%, transparent 50%),
+              radial-gradient(circle at 40% 40%, rgba(212, 163, 115, 0.04) 0%, transparent 50%);
+  animation: floatingBubbles 12s ease-in-out infinite;
+  pointer-events: none;
+  z-index: -1;
+}
+
+@keyframes floatingBubbles {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+    opacity: 0.6;
+  }
+  33% {
+    transform: translateY(-15px) rotate(120deg);
+    opacity: 0.8;
+  }
+  66% {
+    transform: translateY(8px) rotate(240deg);
+    opacity: 0.7;
+  }
+}
+
 .loading-state {
   text-align: center;
   padding: 60px 20px;

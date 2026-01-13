@@ -87,6 +87,6 @@
   flex: 1;
   padding: 60px 50px;
   overflow-y: auto;
-  background: radial-gradient(circle at top left, #fdfaf7, #ffffff);
+  background: transparent;
   box-sizing: border-box;
 }
