@@ -412,6 +412,50 @@ body::before {
   font-size: 16px;
 }
 
+.event-actions {
+  display: flex;
+  gap: 8px;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.event-card:hover .event-actions {
+  opacity: 1;
+}
+
+.action-btn {
+  background: var(--soft-bg);
+  border: 1px solid var(--border-neutral);
+  padding: 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+}
+
+.action-btn:hover {
+  background: var(--primary-accent);
+  color: white;
+  border-color: var(--primary-accent);
+}
+
+.action-btn.edit {
+  color: #0066cc;
+}
+
+.action-btn.duplicate {
+  color: #28a745;
+}
+
+.action-btn.delete {
+  color: #dc3545;
+}
+
 /* Delete button already defined earlier */
 .delete-btn {
   margin-top: 6px;

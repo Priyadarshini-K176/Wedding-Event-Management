@@ -1,0 +1,45 @@
+/* ================================
+   ERROR MESSAGES
+================================ */
+
+.error-container {
+  text-align: center;
+  padding: 40px 20px;
+  background: var(--white);
+  border-radius: 16px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.04);
+  border: 1px solid #fee;
+}
+
+.error-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+.error-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #dc3545;
+  margin-bottom: 8px;
+}
+
+.error-message {
+  color: var(--muted-text);
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.retry-btn {
+  background: var(--primary-accent);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.retry-btn:hover {
+  background: #c19660;
+}

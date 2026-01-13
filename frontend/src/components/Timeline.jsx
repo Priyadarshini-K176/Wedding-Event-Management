@@ -1,6 +1,6 @@
 import EventCard from "./EventCard";
 
-export default function Timeline({ events, onDelete }) {
+export default function Timeline({ events, onDelete, onEdit, onDuplicate }) {
   if (!events.length) {
     return <p className="empty-state">No events yet</p>;
   }
@@ -31,6 +31,8 @@ export default function Timeline({ events, onDelete }) {
                 key={event._id}
                 event={event}
                 onDelete={onDelete}
+                onEdit={onEdit}
+                onDuplicate={onDuplicate}
               />
             ))}
           </div>

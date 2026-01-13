@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import EventForm from "../components/EventForm";
 import Timeline from "../components/Timeline";
+import SkeletonLoader from "../components/SkeletonLoader";
+import ErrorMessage from "../components/ErrorMessage";
+import ConfirmationDialog from "../components/ConfirmationDialog";
 import {
   createEventApi,
   deleteEventApi,
@@ -10,7 +13,12 @@ import "../styles/itinerary.css";
 
 export default function Itinerary() {
   const [events, setEvents] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [showEventDialog, setShowEventDialog] = useState(false);
+  const [showConfirmDialog, setShowConfirmDialog] = useState(false);
+  const [eventToDelete, setEventToDelete] = useState(null);
+  const [editingEvent, setEditingEvent] = useState(null);
   const [profile, setProfile] = useState({});
 
   useEffect(() => {
@@ -23,11 +31,19 @@ export default function Itinerary() {
 
   const loadEvents = async () => {
     try {
+      setLoading(true);
+      setError(null);
       const res = await fetchEventsApi();
       const data = res.data?.events || res.data?.data || res.data || [];
       setEvents(Array.isArray(data) ? data : []);
     } catch (err) {
       console.error("Failed to load events:", err);
+      setError({
+        type: err.response?.status >= 500 ? "server" : "network",
+        message: err.response?.data?.message || "Failed to load events. Please check your connection."
+      });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -37,18 +53,52 @@ export default function Itinerary() {
 
   const handleAddEvent = async (eventData) => {
     try {
-      await createEventApi(eventData);
+      if (editingEvent) {
+        // Update existing event logic would go here
+        console.log("Update event:", eventData);
+      } else {
+        await createEventApi(eventData);
+      }
       setShowEventDialog(false);
+      setEditingEvent(null);
       loadEvents();
     } catch (err) {
       console.error(err);
     }
   };
 
-  const handleDeleteEvent = async (id) => {
-    if (!window.confirm("Delete this event?")) return;
+  const handleDeleteClick = (event) => {
+    setEventToDelete(event);
+    setShowConfirmDialog(true);
+  };
+
+  const handleDeleteConfirm = async () => {
+    if (!eventToDelete) return;
     try {
-      await deleteEventApi(id);
+      await deleteEventApi(eventToDelete._id);
+      setShowConfirmDialog(false);
+      setEventToDelete(null);
+      loadEvents();
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const handleEditEvent = (event) => {
+    setEditingEvent(event);
+    setShowEventDialog(true);
+  };
+
+  const handleDuplicateEvent = async (event) => {
+    try {
+      const duplicatedEvent = {
+        ...event,
+        title: `${event.title} (Copy)`,
+        startTime: new Date(new Date(event.startTime).getTime() + 24 * 60 * 60 * 1000).toISOString(),
+        endTime: new Date(new Date(event.endTime).getTime() + 24 * 60 * 60 * 1000).toISOString()
+      };
+      delete duplicatedEvent._id;
+      await createEventApi(duplicatedEvent);
       loadEvents();
     } catch (err) {
       console.error(err);
@@ -147,6 +197,32 @@ export default function Itinerary() {
     URL.revokeObjectURL(url);
   };
 
+  if (loading) {
+    return (
+      <>
+        <div className="page-header">
+          <h1 className="page-title">Wedding Itinerary</h1>
+        </div>
+        <SkeletonLoader type="event" count={3} />
+      </>
+    );
+  }
+
+  if (error) {
+    return (
+      <>
+        <div className="page-header">
+          <h1 className="page-title">Wedding Itinerary</h1>
+        </div>
+        <ErrorMessage 
+          message={error.message}
+          type={error.type}
+          onRetry={loadEvents}
+        />
+      </>
+    );
+  }
+
   if (!events) return <div className="empty-state">Loading...</div>;
 
   // ✅ SORT EVENTS BY START TIME (TIMELINE ORDER)
@@ -168,7 +244,12 @@ export default function Itinerary() {
       </div>
 
       {sortedEvents.length > 0 ? (
-        <Timeline events={sortedEvents} onDelete={handleDeleteEvent} />
+        <Timeline 
+          events={sortedEvents} 
+          onDelete={handleDeleteClick}
+          onEdit={handleEditEvent}
+          onDuplicate={handleDuplicateEvent}
+        />
       ) : (
         <div className="empty-state">
           <h3>No events planned yet</h3>
@@ -193,14 +274,34 @@ export default function Itinerary() {
       {showEventDialog && (
         <div className="dialog-backdrop">
           <div className="dialog">
-            <h3>Add Event</h3>
-            <EventForm onAdd={handleAddEvent} />
+            <h3>{editingEvent ? "Edit Event" : "Add Event"}</h3>
+            <EventForm 
+              onAdd={handleAddEvent} 
+              initialData={editingEvent}
+            />
             <div className="dialog-actions">
-              <button onClick={() => setShowEventDialog(false)}>Cancel</button>
+              <button onClick={() => {
+                setShowEventDialog(false);
+                setEditingEvent(null);
+              }}>Cancel</button>
             </div>
           </div>
         </div>
       )}
+
+      <ConfirmationDialog
+        isOpen={showConfirmDialog}
+        onClose={() => {
+          setShowConfirmDialog(false);
+          setEventToDelete(null);
+        }}
+        onConfirm={handleDeleteConfirm}
+        title="Delete Event"
+        message="Are you sure you want to delete this event? This action cannot be undone."
+        eventDetails={eventToDelete}
+        confirmText="Delete"
+        cancelText="Cancel"
+      />
     </>
   );
 }
