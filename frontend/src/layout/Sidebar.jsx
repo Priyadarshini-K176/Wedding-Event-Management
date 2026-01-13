@@ -6,7 +6,7 @@ const Sidebar = () => {
       <h4 className="sidebar-title">Planning Tools</h4>
 
       <nav className="sidebar-nav">
-        <NavLink to="/overview">Overview</NavLink>
+        <NavLink to="/app">Dashboard</NavLink>
         <NavLink to="/guests">Guest List</NavLink>
         <NavLink to="/budget">Budget</NavLink>
         <NavLink to="/itinerary">Itinerary</NavLink>

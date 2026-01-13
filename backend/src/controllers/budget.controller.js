@@ -6,7 +6,14 @@ const BudgetItem = require("../models/BudgetItem");
 const getOverview = async (req, res) => {
   try {
     // TODO: Remove fallback after frontend auth is implemented
-    const weddingId = req.user?.weddingId || "507f1f77bcf86cd799439011";
+    if (!req.user || !req.user.weddingId) {
+  return res.status(401).json({
+    success: false,
+    message: "Unauthorized"
+  });
+}
+
+    const weddingId = req.user?.weddingId ;
 
     const categories = await Category.find({ weddingId })
       .sort({ order: 1 })
@@ -66,9 +73,16 @@ return {
 /* Add new category */
 const addCategory = async (req, res) => {
   try {
+    if (!req.user || !req.user.weddingId) {
+  return res.status(401).json({
+    success: false,
+    message: "Unauthorized"
+  });
+}
+
     const { name } = req.body;
     // TODO: Remove fallback after frontend auth is implemented
-    const weddingId = req.user?.weddingId || "507f1f77bcf86cd799439011";
+    const weddingId = req.user?.weddingId ;
 
     if (!name) {
       return res.status(400).json({
@@ -104,10 +118,18 @@ const addCategory = async (req, res) => {
 
 /* Add new item */
 const addItem = async (req, res) => {
+
   try {
+    if (!req.user || !req.user.weddingId) {
+  return res.status(401).json({
+    success: false,
+    message: "Unauthorized"
+  });
+}
+
     const { categoryId, title, plannedCost } = req.body;
     // TODO: Remove fallback after frontend auth is implemented
-    const weddingId = req.user?.weddingId || "507f1f77bcf86cd799439011";
+    const weddingId = req.user?.weddingId ;
 
     if (!categoryId) {
       return res.status(400).json({
@@ -149,8 +171,15 @@ const updateItem = async (req, res) => {
   try {
     const { id } = req.params;
     const { title, actualCost, plannedCost } = req.body;
+    if (!req.user || !req.user.weddingId) {
+  return res.status(401).json({
+    success: false,
+    message: "Unauthorized"
+  });
+}
+
     // TODO: Remove fallback after frontend auth is implemented
-    const weddingId = req.user?.weddingId || "507f1f77bcf86cd799439011";
+    const weddingId = req.user?.weddingId ;
 
     if (!id) {
       return res.status(400).json({
@@ -207,10 +236,17 @@ const updateItem = async (req, res) => {
 
 const updateCategoryBudget = async (req, res) => {
   try {
+    if (!req.user || !req.user.weddingId) {
+  return res.status(401).json({
+    success: false,
+    message: "Unauthorized"
+  });
+}
+
     const { id } = req.params;
     const { plannedBudget } = req.body;
     // TODO: Remove fallback after frontend auth is implemented
-    const weddingId = req.user?.weddingId || "507f1f77bcf86cd799439011";
+    const weddingId = req.user?.weddingId ;
 
     if (plannedBudget === undefined || plannedBudget < 0) {
       return res.status(400).json({

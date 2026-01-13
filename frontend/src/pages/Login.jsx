@@ -18,7 +18,7 @@ const Login = () => {
       const token = res.data.data.token;
 
       localStorage.setItem("token", token);
-      navigate("/budget");
+      navigate("/app");
     } catch (err) {
       setError("Invalid email or password");
     }
