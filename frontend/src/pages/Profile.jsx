@@ -14,10 +14,30 @@ const Profile = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [userRole, setUserRole] = useState(null);
 
   useEffect(() => {
     loadProfile();
+    fetchUserRole();
   }, []);
+
+  const fetchUserRole = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await fetch('http://localhost:5000/api/users/me/permissions', {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+      const data = await response.json();
+      if (data.success && data.data.role) {
+        setUserRole(data.data.role);
+      }
+    } catch (error) {
+      console.error('Error fetching user role:', error);
+    }
+  };
 
   const loadProfile = async () => {
     try {
@@ -166,19 +186,38 @@ const Profile = () => {
             )}
           </div>
 
-          <div className="detail-group">
-            <label>Wedding Date</label>
-            {isEditing ? (
-              <input
-                type="date"
-                name="weddingDate"
-                value={profile.weddingDate}
-                onChange={handleInputChange}
-              />
-            ) : (
-              <span>{profile.weddingDate ? new Date(profile.weddingDate).toLocaleDateString() : "Not set"}</span>
-            )}
-          </div>
+          {userRole === 'OWNER' && (
+            <>
+              <div className="detail-group">
+                <label>Wedding Date</label>
+                {isEditing ? (
+                  <input
+                    type="date"
+                    name="weddingDate"
+                    value={profile.weddingDate}
+                    onChange={handleInputChange}
+                  />
+                ) : (
+                  <span>{profile.weddingDate ? new Date(profile.weddingDate).toLocaleDateString() : "Not set"}</span>
+                )}
+              </div>
+
+              <div className="detail-group">
+                <label>Partner's Name</label>
+                {isEditing ? (
+                  <input
+                    type="text"
+                    name="partnerName"
+                    value={profile.partnerName}
+                    onChange={handleInputChange}
+                    placeholder="Enter partner's name"
+                  />
+                ) : (
+                  <span>{profile.partnerName || "Not set"}</span>
+                )}
+              </div>
+            </>
+          )}
 
           <div className="detail-group">
             <label>Venue</label>
@@ -192,21 +231,6 @@ const Profile = () => {
               />
             ) : (
               <span>{profile.venue || "Not set"}</span>
-            )}
-          </div>
-
-          <div className="detail-group">
-            <label>Partner's Name</label>
-            {isEditing ? (
-              <input
-                type="text"
-                name="partnerName"
-                value={profile.partnerName}
-                onChange={handleInputChange}
-                placeholder="Enter partner's name"
-              />
-            ) : (
-              <span>{profile.partnerName || "Not set"}</span>
             )}
           </div>
 
