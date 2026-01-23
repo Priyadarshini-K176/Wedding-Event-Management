@@ -21,4 +21,8 @@ const noteSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+// Indexes for performance
+noteSchema.index({ weddingId: 1 });
+noteSchema.index({ weddingId: 1, createdAt: -1 });
+
 module.exports = mongoose.model("Note", noteSchema);

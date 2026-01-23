@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { useDebouncedEffect } from "../../hooks/useDebouncedEffect";
-import { updateItem } from "../../services/budget.api";
+import { updateItem, deleteItem } from "../../services/budget.api";
 
-const EditableRow = ({ item }) => {
+const EditableRow = ({ item, onDelete }) => {
   if (!item) return null;
 
   const [title, setTitle] = useState(item.title);
@@ -55,6 +55,22 @@ const EditableRow = ({ item }) => {
     500
   );
 
+  const handleDelete = async () => {
+    if (window.confirm(`Delete "${title}"?`)) {
+      try {
+        const response = await deleteItem(item.id);
+        if (response.data.success) {
+          onDelete(item.id);
+        } else {
+          alert("Failed to delete item");
+        }
+      } catch (err) {
+        console.error("Delete error:", err);
+        alert("Failed to delete item");
+      }
+    }
+  };
+
   const isOverSpent =
     plannedCost > 0 && actualCost > plannedCost;
 
@@ -88,6 +104,11 @@ const EditableRow = ({ item }) => {
         />
        
       </div>
+
+      {/* Delete Button */}
+      <button className="delete-btn" onClick={handleDelete} title="Delete item">
+        🗑️
+      </button>
     </div>
   );
 };

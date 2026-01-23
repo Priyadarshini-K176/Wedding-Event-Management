@@ -22,4 +22,7 @@ const budgetSnapshotSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+// Indexes for performance
+budgetSnapshotSchema.index({ weddingId: 1, version: -1 });
+
 module.exports = mongoose.model("BudgetSnapshot", budgetSnapshotSchema);

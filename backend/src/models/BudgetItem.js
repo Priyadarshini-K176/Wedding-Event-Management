@@ -37,4 +37,9 @@ const budgetItemSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+// Indexes for performance
+budgetItemSchema.index({ weddingId: 1 });
+budgetItemSchema.index({ weddingId: 1, categoryId: 1 });
+budgetItemSchema.index({ categoryId: 1 });
+
 module.exports = mongoose.model("BudgetItem", budgetItemSchema);

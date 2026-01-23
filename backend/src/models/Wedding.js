@@ -21,4 +21,7 @@ const weddingSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+// Indexes for performance
+weddingSchema.index({ ownerId: 1 });
+
 module.exports = mongoose.model("Wedding", weddingSchema);

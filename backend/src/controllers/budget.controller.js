@@ -292,6 +292,121 @@ const updateCategoryBudget = async (req, res) => {
   }
 };
 
+/* Delete budget item */
+const deleteItem = async (req, res) => {
+  try {
+    if (!req.user || !req.user.weddingId) {
+      return res.status(401).json({
+        success: false,
+        message: "Unauthorized"
+      });
+    }
+
+    const { id } = req.params;
+    const weddingId = req.user.weddingId;
+
+    console.log("Delete item request - ID:", id, "WeddingID:", weddingId);
+
+    if (!id) {
+      return res.status(400).json({
+        success: false,
+        message: "Item id is required"
+      });
+    }
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid item ID format"
+      });
+    }
+
+    const item = await BudgetItem.findOneAndDelete(
+      { _id: id, weddingId }
+    );
+
+    if (!item) {
+      return res.status(404).json({
+        success: false,
+        message: "Item not found"
+      });
+    }
+
+    res.json({
+      success: true,
+      message: "Item deleted successfully"
+    });
+  } catch (err) {
+    console.error("Delete item error:", err);
+    res.status(500).json({
+      success: false,
+      message: "Failed to delete item"
+    });
+  }
+};
+
+/* Delete budget category */
+const deleteCategory = async (req, res) => {
+  try {
+    if (!req.user || !req.user.weddingId) {
+      return res.status(401).json({
+        success: false,
+        message: "Unauthorized"
+      });
+    }
+
+    const { id } = req.params;
+    const weddingId = req.user.weddingId;
+
+    console.log("Delete category request - ID:", id, "WeddingID:", weddingId);
+
+    if (!id) {
+      return res.status(400).json({
+        success: false,
+        message: "Category id is required"
+      });
+    }
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid category ID format"
+      });
+    }
+
+    // Check if category has items
+    const itemCount = await BudgetItem.countDocuments({ categoryId: id, weddingId });
+    if (itemCount > 0) {
+      return res.status(400).json({
+        success: false,
+        message: `Cannot delete category with ${itemCount} items. Delete items first.`
+      });
+    }
+
+    const category = await Category.findOneAndDelete(
+      { _id: id, weddingId }
+    );
+
+    if (!category) {
+      return res.status(404).json({
+        success: false,
+        message: "Category not found"
+      });
+    }
+
+    res.json({
+      success: true,
+      message: "Category deleted successfully"
+    });
+  } catch (err) {
+    console.error("Delete category error:", err);
+    res.status(500).json({
+      success: false,
+      message: "Failed to delete category"
+    });
+  }
+};
+
 
 
 module.exports = {
@@ -300,4 +415,6 @@ module.exports = {
   addItem,
   updateItem,
   updateCategoryBudget,
+  deleteItem,
+  deleteCategory,
 };

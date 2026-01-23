@@ -28,4 +28,8 @@ const categorySchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+// Indexes for performance
+categorySchema.index({ weddingId: 1 });
+categorySchema.index({ weddingId: 1, order: 1 });
+
 module.exports = mongoose.model("Category", categorySchema);

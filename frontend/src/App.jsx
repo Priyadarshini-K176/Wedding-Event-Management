@@ -10,6 +10,7 @@ import Profile from "./pages/Profile";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
+import ShareWedding from "./components/ShareWedding";
 
 function App() {
   return (
@@ -25,7 +26,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
 
-        {/* PROTECTED ROUTES WITH SIDEBAR (NO /app PREFIX) */}
+        {/* PROTECTED ROUTES WITH SIDEBAR */}
         <Route element={<AppLayout />}>
           <Route path="/app" index element={<Dashboard />} />
           <Route path="/budget" element={<BudgetPage />} />
@@ -33,6 +34,7 @@ function App() {
           <Route path="/notes" element={<Notes />} />
           <Route path="/guests" element={<Guests />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/share-wedding" element={<ShareWedding />} />
         </Route>
 
       </Routes>

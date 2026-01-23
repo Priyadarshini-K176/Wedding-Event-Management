@@ -56,4 +56,8 @@ const userSchema=new mongoose.Schema(
 {timestamps:true}
 );
 
+// Indexes for performance
+userSchema.index({ email: 1 });
+userSchema.index({ weddingId: 1 });
+
 module.exports=mongoose.model("User",userSchema);

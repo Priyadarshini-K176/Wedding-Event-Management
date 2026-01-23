@@ -15,13 +15,13 @@ api.interceptors.request.use((config) => {
 export const getOverview = () => api.get("/overview");
 
 export const addCategory = (name) =>
-  api.post("/categories", { name });
+  api.post("/category", { name });
 
 /**
  * Add new item
- * payload = { title, plannedCost }
+ * payload = { categoryId, title, plannedCost }
  */
-export const addItem = ( payload) =>
+export const addItem = (payload) =>
   api.post("/item", payload);
 
 /**
@@ -32,9 +32,21 @@ export const updateItem = (itemId, payload) =>
   api.patch(`/item/${itemId}`, payload);
 
 /**
+ * Delete item
+ */
+export const deleteItem = (itemId) =>
+  api.delete(`/item/${itemId}`);
+
+/**
  * Update category planned budget
  */
 export const updateCategoryBudget = (categoryId, plannedBudget) =>
-  api.patch(`/categories/${categoryId}/budget`, { plannedBudget });
+  api.patch(`/category/${categoryId}`, { plannedBudget });
+
+/**
+ * Delete category
+ */
+export const deleteCategory = (categoryId) =>
+  api.delete(`/category/${categoryId}`);
 
 

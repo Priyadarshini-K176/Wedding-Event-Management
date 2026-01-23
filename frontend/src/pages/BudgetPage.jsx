@@ -59,10 +59,20 @@ const downloadPDF = () => {
 
   const handleAddCategory = async () => {
     if (!categoryName.trim()) return;
-    await addCategory(categoryName);
-    setCategoryName("");
-    setShowCategoryDialog(false);
-    fetchOverview();
+    try {
+      const response = await addCategory(categoryName.trim());
+      if (response.data.success) {
+        setCategoryName("");
+        setShowCategoryDialog(false);
+        await fetchOverview();
+      } else {
+        console.error("Failed to add category:", response.data.message);
+        alert("Failed to add category");
+      }
+    } catch (err) {
+      console.error("Add category error:", err);
+      alert("Failed to add category: " + (err.response?.data?.message || err.message));
+    }
   };
 
   if (!data) return <div>Loading...</div>;

@@ -39,4 +39,9 @@ const guestSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+// Indexes for performance
+guestSchema.index({ weddingId: 1 });
+guestSchema.index({ weddingId: 1, rsvp: 1 });
+guestSchema.index({ weddingId: 1, side: 1 });
+
 module.exports = mongoose.model("Guest", guestSchema);

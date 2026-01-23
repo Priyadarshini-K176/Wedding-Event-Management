@@ -157,18 +157,16 @@ h1, .page-title {
 
 .budget-row {
   display: grid;
-  grid-template-columns: 1fr 130px; 
+  grid-template-columns: 1fr 120px 120px 40px;
   align-items: center;
-  gap: 20px;
-  padding: 12px 12px;
-  margin: 0 -12px; /* Pulls hover background to the edge of the box padding */
-  border-radius: 8px;
-  border-bottom: 1px solid #f9f7f5;
+  gap: 0;
+  padding: 16px 30px;
+  border-bottom: 1px solid #f5f5f5;
   transition: background 0.15s ease;
 }
 
 .budget-row:hover {
-  background: #fcfaf8; /* Soft row highlight */
+  background: #fffbf7;
 }
 
 .budget-row:last-child {
@@ -214,25 +212,33 @@ h1, .page-title {
    6. SLIM FOOTER (TOTAL)
 ================================ */
 .budget-footer {
-  margin-top: 30px;
+  margin-top: 50px;
   width: 100%;
-  max-width: 320px;
+  max-width: 400px;
   margin-left: auto;
-  padding: 16px 24px;
-  background: var(--deep-text);
-  border-radius: 14px;
+  padding: 24px 32px;
+  background: linear-gradient(135deg, #2d2a26 0%, #3d3a36 100%);
+  border-radius: 16px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   color: var(--white);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
 }
 
 .budget-footer span {
   font-size: 11px;
   font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 1.2px;
   color: #a8a29d;
+}
+
+.budget-footer strong {
+  font-size: 28px;
+  font-weight: 800;
+  color: #d4a373;
+  letter-spacing: -0.5px;
 }
 
 .budget-footer strong {
@@ -304,21 +310,24 @@ button.secondary:hover {
 }
 
 .add-category {
-  margin-top: 32px;
+  margin-top: 40px;
   background: transparent;
-  border: 1.5px solid var(--border-neutral);
-  padding: 14px 28px;
+  border: 2px solid #d4a373;
+  padding: 14px 32px;
   border-radius: 50px;
   font-size: 14px;
   font-weight: 700;
-  color: var(--muted-text);
+  color: #d4a373;
   cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  letter-spacing: 0.5px;
 }
 
 .add-category:hover {
-  background: var(--deep-text);
-  color: var(--white);
-  border-color: var(--deep-text);
+  background: #d4a373;
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(212, 163, 115, 0.2);
 }
 
 /* ================================
@@ -327,11 +336,11 @@ button.secondary:hover {
 .dialog-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(45, 42, 38, 0.3);
+  background: rgba(45, 42, 38, 0.4);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 100;
+  z-index: 1000;
 }
 
 .dialog {
@@ -340,7 +349,7 @@ button.secondary:hover {
   max-width: 400px;
   padding: 32px;
   border-radius: 20px;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
 }
 
 .dialog h3 {
@@ -392,6 +401,101 @@ button.secondary:hover {
   color: var(--muted-text);
 }
 
+/* Dialog Box (used in CategorySection) */
+.dialog-box {
+  background: #ffffff;
+  width: 100%;
+  max-width: 420px;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.dialog-box h3 {
+  margin: 0 0 8px 0;
+  font-size: 24px;
+  font-weight: 800;
+  color: #111;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.dialog-box p {
+  margin: 0 0 24px 0;
+  font-size: 15px;
+  color: #888;
+  font-weight: 500;
+}
+
+.dialog-box input {
+  width: 100%;
+  padding: 14px 16px;
+  margin-bottom: 24px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  font-size: 15px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  box-sizing: border-box;
+  transition: all 0.2s ease;
+}
+
+.dialog-box input:focus {
+  outline: none;
+  border-color: #d4a373;
+  background: #fffbf7;
+}
+
+.dialog-footer {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+}
+
+.dialog-footer .cancel-btn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 10px;
+  background: #f5f5f5;
+  color: #888;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.dialog-footer .cancel-btn:hover {
+  background: #efefef;
+  color: #555;
+}
+
+.dialog-footer .confirm-btn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 10px;
+  background: #d4a373;
+  color: #fff;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.dialog-footer .confirm-btn:hover {
+  background: #c29263;
+  box-shadow: 0 4px 12px rgba(212, 163, 115, 0.3);
+}
+
 
 
 
@@ -400,52 +504,114 @@ button.secondary:hover {
   font-size: 15px;
   background: transparent;
   outline: none;
+  font-weight: 500;
+  color: #111;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.title-input:focus {
+  background: #fffbf7;
 }
 
 .cost-inputs {
-  display: flex;
-  justify-content: flex-end;
+  display: grid;
+  grid-template-columns: 120px 20px 120px;
   align-items: center;
-  gap: 6px;
+  gap: 0;
+  justify-items: right;
 }
 
 .planned-input {
-  width: 82px;
+  width: 100%;
   text-align: right;
   font-weight: 700;
-  font-size: 15.5px;
-  color: var(--deep-text);
+  font-size: 15px;
+  color: #111;
   border: none;
   background: transparent;
+  outline: none;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  padding: 0 10px 0 0;
+}
+
+.planned-input:focus {
+  border-bottom: 1px solid #d4a373;
 }
 
 .actual-input {
-  width: 82px;
+  width: 100%;
   text-align: right;
-  font-size: 15.5px;
+  font-size: 15px;
   font-weight: 700;
-  color: var(--muted-text);
+  color: #888;
   border: none;
   background: transparent;
+  outline: none;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  padding: 0;
 }
 
+.actual-input:focus {
+  border-bottom: 1px solid #d4a373;
+}
 
 .cost-separator {
   font-weight: 700;
-  color: var(--primary-accent);
+  color: #d4a373;
+  text-align: center;
+}
+
+/* Delete Button */
+.delete-btn {
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 18px;
+  opacity: 0.6;
+  transition: all 0.2s ease;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.delete-btn:hover {
+  opacity: 1;
+  background: #fee5e5;
+  color: #d9534f;
+}
+
+/* Delete Category Button */
+.delete-category-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  opacity: 0.5;
+  transition: all 0.2s ease;
+  padding: 4px 6px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  margin-left: 4px;
+}
+
+.delete-category-btn:hover {
+  opacity: 1;
+  background: #fee5e5;
 }
 
 
 .budget-row.overspent {
   background: linear-gradient(
     to right,
-    rgba(212, 163, 115, 0.12),
-    rgba(255, 220, 220, 0.45)
+    rgba(212, 163, 115, 0.08),
+    rgba(255, 220, 220, 0.2)
   );
-  
-
-
-  
 }
 
 .category-budget {
@@ -524,37 +690,57 @@ button.secondary:hover {
   padding: 24px 30px;
   background: #f9f9f9; /* Subtle gray to separate from list */
   border-bottom: 2px solid #e2e2e2;
+  gap: 40px;
+}
+
+.header-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 0 0 auto;
 }
 
 .category-title {
   margin: 0;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 800;
   color: #111111; /* Darker black */
+  font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
 .count-badge {
   font-size: 11px;
   font-weight: 700;
-  color: #777;
+  color: #999;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  background: #eee;
+  padding: 4px 8px;
+  border-radius: 6px;
 }
 
 /* Header Summary Stats */
 .header-summary {
-  display: flex;
+  display: grid;
+  grid-template-columns: 120px 1px 120px;
   align-items: center;
-  gap: 30px;
+  gap: 20px;
+}
+
+.summary-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
 }
 
 .summary-item label {
   display: block;
   font-size: 10px;
   font-weight: 800;
-  color: #555; /* Mid-gray label */
+  color: #888; /* Mid-gray label */
   text-transform: uppercase;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
+  letter-spacing: 0.5px;
 }
 
 .total-amount {
@@ -565,8 +751,21 @@ button.secondary:hover {
 
 .header-divider {
   width: 1px;
-  height: 35px;
-  background: #ddd;
+  height: 45px;
+  background: #d4a373;
+  opacity: 0.3;
+}
+
+.input-group {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.input-group .curr {
+  font-size: 14px;
+  font-weight: 700;
+  color: #888;
 }
 
 .planned-total-input {
@@ -575,10 +774,15 @@ button.secondary:hover {
   background: transparent;
   font-size: 18px;
   font-weight: 800;
-  width: 100px;
+  width: 90px;
   color: #111;
   outline: none;
   text-align: right;
+  padding: 4px 0;
+}
+
+.planned-total-input:focus {
+  border-bottom-color: #c29263;
 }
 
 /* Table Alignment (MATCH THESE WIDTHS IN EDITABLE ROW) */
@@ -592,6 +796,12 @@ button.secondary:hover {
   font-weight: 700;
   color: #999;
   text-transform: uppercase;
+  letter-spacing: 0.5px;
+  gap: 0;
+}
+
+.col-desc {
+  text-align: left;
 }
 
 .col-num {
@@ -599,10 +809,14 @@ button.secondary:hover {
   padding-right: 10px;
 }
 
+.col-spacer {
+  width: 40px;
+}
+
 /* Add Item Button */
 .category-add-btn {
   width: 100%;
-  padding: 18px 32px; 
+  padding: 16px 30px; 
   background: #ffffff;
   border: none;
   border-top: 1px solid #eeeeee;
@@ -611,7 +825,7 @@ button.secondary:hover {
   font-size: 14px;
   cursor: pointer;
   text-align: left;
-  padding-left: 30px;
+  transition: all 0.2s ease;
 }
 
 .category-add-btn:hover {
@@ -620,14 +834,16 @@ button.secondary:hover {
 }
 
 /* List Items */
-.empty-row {
-  padding: 20px 0px;
-  color: #bbb;
-  font-size: 14px;
-  font-style: italic;
+.category-items-list {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
 }
 
-
-.category-items-list{
-  padding: 20px;
+.empty-row {
+  padding: 40px 30px;
+  color: #ccc;
+  font-size: 14px;
+  font-style: italic;
+  text-align: center;
 }
