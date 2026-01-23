@@ -18,4 +18,5 @@ API.interceptors.request.use((config) => {
 
 export const fetchNotesApi = () => API.get("/");
 export const createNoteApi = (data) => API.post("/", data);
+export const updateNoteApi = (id, data) => API.put(`/${id}`, data);
 export const deleteNoteApi = (id) => API.delete(`/${id}`);

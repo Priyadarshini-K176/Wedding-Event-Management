@@ -20,6 +20,6 @@ router.use(apiLimiter);
 router.post("/", requireEditAccess(), validate(addEventSchema), createEvent);
 router.get("/", requirePermission(PERMISSIONS.VIEW_EVENTS), getEvents);
 router.put("/:id", requireEditAccess(), validate(updateEventSchema), updateEvent);
-router.delete("/:id", requireOwnerRole(), deleteEvent);
+router.delete("/:id", requireEditAccess(), deleteEvent);
 
 module.exports=router;

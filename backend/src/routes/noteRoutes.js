@@ -11,6 +11,7 @@ const {
   createNote,
   getNotes,
   deleteNote,
+  updateNote,
 } = require("../controllers/noteController");
 
 router.use(auth);
@@ -18,6 +19,7 @@ router.use(apiLimiter);
 
 router.post("/", requireEditAccess(), validate(addNoteSchema), createNote);
 router.get("/", requirePermission(PERMISSIONS.VIEW_NOTES), getNotes);
-router.delete("/:id", requireOwnerRole(), deleteNote);
+router.put("/:id", requireEditAccess(), validate(updateNoteSchema), updateNote);
+router.delete("/:id", requireEditAccess(), deleteNote);
 
 module.exports = router;
