@@ -142,9 +142,4 @@ npm start
 
 ---
 
-## 👩‍💻 Author
-
-**Priya**
----
-
 ⭐ If you find this project useful, feel free to star the repository!
