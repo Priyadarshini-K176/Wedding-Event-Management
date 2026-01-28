@@ -1,86 +1,151 @@
-# 🎉 Event Management System
+# 💍 Wedding Planning & Budget Management System
 
-A full-stack web application to manage events, users, schedules, and notes through a simple and user-friendly interface.  
-This project was developed as a team project and enhanced with additional features and optimizations.
-
----
-
-## 📌 Project Overview
-
-The Event Management System helps users to:
-- Create and manage events
-- View event schedules and details
-- Add notes and track updates
-- Manage user authentication and profiles
-
-The goal of this project is to simplify event coordination and provide a centralized platform for managing event-related activities.
+A full‑stack wedding planning application with a strong focus on  **budget tracking**, and **multi‑user access control**. The project enables users to create or join weddings, manage budgets and guest lists, and securely collaborate with controlled permissions.
 
 ---
 
-## ✨ Features
+## 🚀 Features
 
-- 🔐 User Authentication (Login / Signup)
-- 📅 Event Creation and Management
-- 📝 Notes and Task Tracking for Events
-- 📊 Overview Dashboard
-- 🔎 Event Filtering and Search
-- 🎨 Responsive UI Design
+### 🔐 Authentication & Authorization
 
----
+* JWT‑based authentication
+* Role‑Based Access Control (RBAC): `OWNER`, `EDITOR`, `VIEWER`
+* Invite‑based access to join existing weddings
+* Centralized authentication & authorization middleware
+* API rate limiting for security and abuse prevention
 
-## 🛠 Tech Stack
+### 💰 Budget Management
 
-### Frontend
-- React.js
-- Vite
-- Tailwind CSS / CSS
+* Category‑wise budget allocation
+* Item‑level planned vs actual cost tracking
+* Autosave‑safe updates
+* Backend‑computed financial summaries
+* PDF / XLS export support (frontend‑triggered)
 
-### Backend
-- Node.js
-- Express.js
+### 👥 Guest Management
 
-### Database
-- MongoDB
+* Add and manage guest lists
+* RSVP status updates
+* Wedding‑scoped data isolation
 
-### Tools
-- Git & GitHub
-- Postman (API testing)
+### 🏗️ Backend System Design
 
----
-
-## 👩‍💻 My Contributions
-
-As part of the development team, my responsibilities included:
-
-- Designing and developing frontend pages (Login, Overview, Event pages)
-- Integrating frontend with backend REST APIs
-- Implementing event filtering and dashboard updates
-- UI improvements and responsive design fixes
-- Bug fixing and performance optimizations
-- Preparing optimization and documentation reports
-
-I also pushed continuous updates from my local system and maintained feature branches during development.
+* Multi‑tenant architecture using `weddingId`
+* MongoDB data modeling with Mongoose
+* Schema‑level validations and indexing
+* Ownership checks on all write operations
+* RESTful API design
 
 ---
 
-## 🚀 Future Enhancements
+## 🛠️ Tech Stack
 
-- Role-based access control (Admin / Organizer / User)
-- Email and notification alerts
-- Calendar integration
-- Analytics dashboard for events
-- Deployment using Docker and cloud services
+**Backend**
+
+* Node.js
+* Express.js
+* MongoDB
+* Mongoose
+* JWT Authentication
+
+**Frontend**
+
+* React.js
+* Axios
+* CSS (Custom UI)
 
 ---
 
-## 📷 Screenshots
+## 📂 Project Structure
 
-(Add screenshots of your UI here later)
+```
+backend/
+ ├── controllers/
+ ├── middleware/
+ ├── models/
+ ├── routes/
+ ├── validators/
+ └── server.js
+
+frontend/
+ ├── components/
+ ├── pages/
+ ├── services/
+ └── styles/
+```
 
 ---
 
-## 📬 Contact
+## 🔑 Core Concepts Implemented
 
-**Padmapriya C**  
-BE CSE | Aspiring Software Engineer  
-GitHub: https://github.com/YOUR_USERNAME
+* **Multi‑Tenant Data Isolation**
+  All domain entities (budgets, categories, items, guests) are scoped using a `weddingId`, ensuring users only access their own wedding data.
+
+* **RBAC (Role‑Based Access Control)**
+  Designed to support multiple roles with different permissions. Currently enforced at the API level via middleware.
+
+* **Validation & Indexing**
+  Mongoose schemas include validations and indexed fields for performance and data integrity.
+
+* **Secure APIs**
+  All sensitive routes are protected using JWT authentication and role checks.
+
+---
+
+## ⚙️ Setup Instructions
+
+### 1️⃣ Clone the repository
+
+```bash
+git clone https://github.com/your-username/your-repo-name.git
+cd your-repo-name
+```
+
+### 2️⃣ Backend Setup
+
+```bash
+cd backend
+npm install
+```
+
+Create a `.env` file:
+
+```
+PORT=5000
+MONGO_URI=your_mongodb_connection_string
+JWT_SECRET=your_secret_key
+```
+
+Start backend server:
+
+```bash
+npm run dev
+```
+
+### 3️⃣ Frontend Setup
+
+```bash
+cd frontend
+npm install
+npm start
+```
+
+---
+
+## 📈 Future Improvements
+
+* Real‑time collaboration using WebSockets
+* Budget snapshots & version history
+* Soft deletes and audit logs
+* Advanced analytics dashboards
+* Email‑based wedding invitations
+
+---
+
+## 👩‍💻 Author
+
+**Priya**
+Computer Science Engineering Student
+---
+
+⭐ If you find this project useful, feel free to star the repository!
